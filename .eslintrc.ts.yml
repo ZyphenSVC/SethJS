@@ -1,0 +1,123 @@
+---
+extends:
+- "./.eslintrc.yml"
+- plugin:@typescript-eslint/eslint-recommended
+- plugin:@typescript-eslint/recommended
+rules:
+  "@typescript-eslint/indent":
+  - 2
+  - 2
+  - SwitchCase: 1
+    ignoreComments: false
+  "@typescript-eslint/member-delimiter-style": 2
+  "@typescript-eslint/no-explicit-any": 0
+  "@typescript-eslint/consistent-type-definitions": 2
+  "@typescript-eslint/semi":
+  - 2
+  - always
+  "@typescript-eslint/ban-ts-comment":
+  - 2
+  - ts-expect-error: allow-with-description
+    ts-ignore: allow-with-description
+  indent:
+    - 2
+    - 4
+    - SwitchCase: 1
+      ignoreComments: false
+  keyword-spacing:
+    - 2
+    - after: true
+      overrides:
+        catch:
+          after: false
+        for:
+          after: false
+        if:
+          after: false
+        switch:
+          after: false
+        while:
+          after: false
+  object-curly-spacing:
+    - 2
+    - always
+  semi:
+    - 2
+    - always
+  sort-class-members/sort-class-members:
+  - 2
+  - order:
+    - "[screaming-snake-case-static-properties]"
+    - "[alphabetical-static-properties]"
+    - "[alphabetical-properties]"
+    - constructor
+    - update
+    - "[alphabetical-getters]"
+    - "[alphabetical-methods]"
+    - "[alphabetical-conventional-private-methods]"
+    - 'on'
+    - "[everything-else]"
+    - "[custom-inspect-method]"
+    - toString
+    - toJSON
+    groups:
+      screaming-snake-case-static-properties:
+      - name: "/^[A-Z_0-9]+$/"
+        type: property
+        static: true
+      alphabetical-static-properties:
+      - type: property
+        sort: alphabetical
+        static: true
+      alphabetical-static-methods:
+      - type: method
+        sort: alphabetical
+        static: true
+      alphabetical-methods:
+      - type: method
+        sort: alphabetical
+        static: false
+      alphabetical-properties:
+      - type: property
+        sort: alphabetical
+        static: false
+      custom-inspect-method:
+      - name: "[util.inspect.custom]"
+        type: method
+  array-bracket-spacing:
+    - 2
+    - never
+  arrow-parens: 2
+  brace-style:
+    - 2
+    - 1tbs
+    - allowSingleLine: false
+  comma-dangle:
+    - 2
+    - never
+  curly: 2
+  eol-last:
+    - 2
+    - always
+  no-prototype-builtins: 0
+  no-trailing-spaces: 2
+  no-var: 2
+  object-shorthand:
+    - 2
+    - consistent-as-needed
+  prefer-const: 2
+  quotes:
+    - 2
+    - double
+  require-atomic-updates: 1 
+env:
+  es6: true
+  node: true
+plugins:
+  - "sort-class-members"
+globals:
+  BigInt: true
+  window: true
+parserOptions:
+  ecmaVersion: 2020
+  sourceType: "module"
