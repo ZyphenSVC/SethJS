@@ -1,13 +1,13 @@
 const EventEmitter = require("events");
 const {WebSocket} = require("ws");
 const {GatewayOPCodes, Constants} = require("../Constants");
+const {handlers} = require("./handlers");
 
 module.exports = class Shard extends EventEmitter {
     constructor(client) {
         super();
         this.client = client;
         this.ws = new WebSocket(Constants.GATEWAY);
-        this.initWS();
     }
 
     heartbeat() {
@@ -46,7 +46,7 @@ module.exports = class Shard extends EventEmitter {
         this.ws.on("message", async (data) => {
             try {
                 const packet = JSON.parse(data.toString());
-                console.log(packet);
+                // console.log(packet);
                 this.onPacket(packet);
             } catch(err) {
                 console.log(err);
@@ -64,11 +64,10 @@ module.exports = class Shard extends EventEmitter {
      * Acts on packet information
      * @param {Object} packet The packet
      */
-    onPacket(packet) {
-        console.log(packet);
-
+    async onPacket(packet) {
         switch(packet.op) {
             case GatewayOPCodes.DISPATCH:
+                new (handlers[packet.t])(this.client, packet);
                 break;
             case GatewayOPCodes.HEARTBEAT:
                 this.heartbeat();
