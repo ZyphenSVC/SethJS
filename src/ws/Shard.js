@@ -41,7 +41,7 @@ module.exports = class Shard extends EventEmitter {
      */
     initWS() {
         this.ws.on("open", () => {
-            console.log("Connecting");
+            this.client.emit("ws", "Connecting");
         });
         this.ws.on("message", async (data) => {
             try {
@@ -49,14 +49,14 @@ module.exports = class Shard extends EventEmitter {
                 // console.log(packet);
                 this.onPacket(packet);
             } catch(err) {
-                console.log(err);
+                this.client.emit("ws", err);
             }
         });
         this.ws.on("error", (err) => {
-            console.log(err);
+            this.client.emit("ws", err);
         });
         this.ws.on("close", (code, reason) => {
-            console.log(code, reason);
+            this.client.emit("ws", code, reason);
         });
     }
 
@@ -67,24 +67,26 @@ module.exports = class Shard extends EventEmitter {
     async onPacket(packet) {
         switch(packet.op) {
             case GatewayOPCodes.DISPATCH:
+                this.client.emit("raw", "Event Registered");
                 new (handlers[packet.t])(this.client, packet);
                 break;
             case GatewayOPCodes.HEARTBEAT:
+                this.client.emit("raw", "Heartbeat");
                 this.heartbeat();
                 break;
             case GatewayOPCodes.INVALID_SESSION:
-                console.log("Invalid session, reidentifying");
+                this.client.emit("warn", "Invalid session, reidentifying");
                 this.identify();
                 break;
             case GatewayOPCodes.HELLO:
                 this.identify();
                 this.heartbeat();
-                console.log("hello");
+                this.client.emit("raw", "Heartbeat Signature Registration");
                 break;
             case GatewayOPCodes.HEARTBEAT_ACK:
                 break;
             default:
-                console.log("random packet");
+                this.client.emit("raw", "Miscellaneous packet");
                 break;
         }
     }

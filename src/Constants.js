@@ -1,7 +1,6 @@
 module.exports.Constants = {
     GATEWAY: "wss://gateway.discord.gg/?v=9&encoding=json",
-    VERSION: 9,
-    API: this.Endpoints.CLIENT_URL + this.Endpoints.BASE_URL
+    VERSION: 9
 };
 
 module.exports.Endpoints = {
