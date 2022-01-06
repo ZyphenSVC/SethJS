@@ -1,15 +1,6 @@
 const Seth = require("../");
 
-const client = new Seth("NDUxODczMjgwMDAxOTY2MDgx.WxB1yQ.Mig0yy6XtJ8GFNJxkB0LzJlNGu8");
-
-client.on("threadCreate", (c, n) => {
-    console.log(n);
-});
-
-client.on("threadDelete", (c, n) => {
-    console.log(n);
-});
-
+const client = new Seth("TOKEN");
 
 client.on("ready", () => {
     console.log("Ready!");
