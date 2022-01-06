@@ -1,3 +1,5 @@
+const {ChannelTypes} = require("../Constants");
+
 /**
  * Channel properties
  * @property {String} id
@@ -11,23 +13,29 @@
  * @property {Number} bitrate
  */
 module.exports = class Channel {
-    constructor(data, guild) {
+    constructor(data) {
         this.id = data.id;
-        this.type = data.type;
-        this.guild = guild;
-        this.guild_id = guild.id;
+        this.type = ChannelTypes(data.type);
+        this.guild_id = data.guild_id;
         this.position = data.position;
         this.name = data.name;
         this.topic = data.topic;
         this.nsfw = data.nsfw;
+        this.lastMessageID = data.last_message_id;
         this.bitrate = data.bitrate;
+        this.userLimit = data.user_limit;
+        this.rateLimitPerUser = data.rate_limit_per_user;
     }
 
     update(data) {
         this.name = data.name;
+        this.type = ChannelTypes(data.type);
         this.topic = data.topic;
         this.nsfw = data.nsfw;
+        this.lastMessageID = data.last_message_id;
         this.position = data.position;
         this.bitrate = data.bitrate;
+        this.userLimit = data.user_limit;
+        this.rateLimitPerUser = data.rate_limit_per_user;
     }
 };

@@ -1,5 +1,5 @@
 /**
- * Role properties
+ * Message properties
  * @property {Number} type
  * @property {Boolean} tts
  * @property {String} timestamp
@@ -19,7 +19,7 @@
  * @property {Member} member
  */
 module.exports = class Message {
-    constructor(data) {
+    constructor(client, data) {
         this.type = data.type;
         this.tts = data.tts;
         this.timestamp = data.timestamp;
@@ -33,19 +33,9 @@ module.exports = class Message {
         this.embeds = data.embeds;
         this.editedTime = data.edited_timestamp;
         this.content = data.content;
-        this.channelID = data.channel_id;
         this.guildID = data.guild_id;
-    }
-
-    update(data) {
-        this.unicode_emoji = data.unicode_emoji;
-        this.position = data.position;
-        this.permissions = data.permissions;
-        this.name = data.name;
-        this.mentionable = data.mentionable;
-        this.managed = data.managed;
-        this.id = data.id;
-        this.hoist = data.hoist;
-        this.color = data.color;
+        this.channel = client.channels.get(data.channel_id);
+        this.author = client.user.add(data.author, data.author.id);
+        this.member = data.member;
     }
 };

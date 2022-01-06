@@ -92,13 +92,13 @@ module.exports = class Guild {
         this.embedded_activities = data.embedded_activities;
 
         for(const channel of data.channels) {
-            this.channels.add(channel, this);
+            this.channels.add(channel, channel.id);
         }
         for(const member of data.members) {
-            this.members.add(member, this);
+            this.members.add(new Member(member, this), data.members.user.id);
         }
         for(const role of data.roles) {
-            this.roles.add(role, this);
+            this.roles.add(new Role(role, this), data.roles.id);
         }
     }
 
@@ -117,4 +117,23 @@ module.exports = class Guild {
         this.emojis = data.emojis;
         this.channels = data.channels;
     }
+    // update(data) {
+    //     this.verification_level = data.verification_level !== undefined ? data.verification_level : this.verification_level;
+    //     this.preferred_locale = data.preferred_locale !== undefined ? data.preferred_locale : this.preferred_locale;
+    //     this.name = data.name !== undefined ? data.name : this.name;
+    //     this.voice_states = data.voice_states !== undefined ? data.voice_states : this.voice_states;
+    //     this.description = data.description !== undefined ? data.description : this.description;
+    //     this.member_count = data.member_count !== undefined ? data.member_count : this.member_count;
+    //     this.splash = data.splash !== undefined ? data.splash : this.splash;
+    //     this.roles = data.roles !== undefined ? data.roles : this.roles;
+    //     this.owner_id = data.owner_id !== undefined ? data.owner_id : this.owner_id;
+    //     this.members = data.members !== undefined ? data.members : this.members;
+    //     this.icon = data.icon !== undefined ? data.icon : this.icon;
+    //     this.emojis = data.emojis !== undefined ? data.emojis : this.emojis;
+    //     this.channels = data.channels !== undefined ? data.channels : this.channels;
+    // }
+
+    // addMember(data. guild) {
+    //     this.members.add(data, this);
+    // }
 };

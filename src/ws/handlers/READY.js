@@ -1,8 +1,10 @@
 module.exports = class READY {
-    constructor(client, payload) {
-        this.client = client;
-        this.client.ready = payload.d;
-        this.client.user.add(payload.d.user);
-        this.client.emit("ready", client, this.client.ready);
+    constructor(client, payload, id) {
+        client.ready.add(payload.d, id);
+        client.user.add(payload.d.user, payload.d.user.id);
+        client.readyCollSize = client.ready.size;
+        if(client.readyCollSize == client.options.maxShards) {
+            client.emit("ready", this, this.ready);
+        }
     }
 };

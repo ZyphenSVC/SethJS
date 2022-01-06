@@ -1,7 +1,9 @@
 module.exports = class GUILD_CREATE {
     constructor(client, payload) {
-        this.client = client;
-        this.client.guild.add(payload.d);
-        this.client.emit("guildCreate", client, this.client.guild.get(payload.d.id));
+        for(const channel of payload.d.channels) {
+            client.channels.add(channel, channel.id);
+        }
+        client.guild.add(payload.d, payload.d.id);
+        client.emit("guildCreate", client, client.guild.get(payload.d.id));
     }
 };

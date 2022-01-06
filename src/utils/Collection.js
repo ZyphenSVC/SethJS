@@ -13,27 +13,12 @@ module.exports = class Collection extends Map {
     }
 
     /**
-    * Update an object
-    * @param {Object} obj The updated object data
-    * @returns {Object} The updated object
-    */
-    update(obj) {
-        const item = this.get(obj.id);
-        item.update(obj);
-        return item;
-    }
-
-    /**
      * Add an object
      * @param {Object} obj The object
      * @returns {Object} Existing or new object
      */
-    add(obj) {
-        const existing = this.get(obj.id);
-        if(existing) {
-            return existing;
-        }
-        this.set(obj.id, obj);
+    add(obj, id) {
+        this.set(id, obj);
         return obj;
     }
 
@@ -53,16 +38,15 @@ module.exports = class Collection extends Map {
 
     /**
     * Remove an object
-    * @param {Object} obj The object
-    * @param {String} obj.id The object ID
+    * @param {String} id The object ID
     * @returns {Object | null} The removed object or null if nothing was removed
     */
-    remove(obj) {
-        const item = this.get(obj.id);
+    remove(id) {
+        const item = this.get(id);
         if(!item) {
             return null;
         }
-        this.delete(obj.id);
+        this.delete(id);
         return item;
     }
 };
