@@ -1,4 +1,4 @@
-Eris [![NPM version](https://img.shields.io/npm/v/sethjs.svg?style=flat-square&color=informational)](https://npmjs.com/package/sethjs)
+Seth [![NPM version](https://img.shields.io/npm/v/sethjs.svg?style=flat-square&color=informational)](https://npmjs.com/package/sethjs)
 ===
 A Node.JS wrapper for the Discord API.
 
